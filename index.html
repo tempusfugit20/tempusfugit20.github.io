@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imperium Romanum · Cuenta atrás</title>
+  <!-- Fuente con espíritu imperial y librería de iconos Font Awesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cinzel', 'Times New Roman', serif;
+      background: #2b1b0e;  /* fondo oscuro como tierra antigua */
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background-image: 
+        linear-gradient(45deg, rgba(180, 130, 70, 0.1) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(180, 130, 70, 0.1) 25%, transparent 25%);
+      background-size: 40px 40px;
+      position: relative;
+    }
+
+    /* efecto papiro / mármol para el contenedor principal */
+    .container {
+      background: #faf0db;
+      background: linear-gradient(145deg, #f8e9d0 0%, #e8d4b5 100%);
+      border: 8px double #b8860b;  /* dorado antiguo */
+      border-radius: 32px 32px 12px 12px;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.7), inset 0 0 30px rgba(255,215,0,0.3);
+      padding: 2.5rem 2rem;
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      transition: opacity 0.4s ease;
+    }
+
+    /* decoración de laureles en las esquinas */
+    .container::before,
+    .container::after {
+      content: "✧";
+      font-size: 2rem;
+      color: #c5a028;
+      position: absolute;
+      opacity: 0.6;
+      text-shadow: 0 0 5px #ffd700;
+    }
+    .container::before {
+      top: -5px;
+      left: 15px;
+      transform: rotate(-15deg);
+    }
+    .container::after {
+      bottom: -5px;
+      right: 15px;
+      transform: rotate(15deg);
+    }
+
+    /* emblema SPQR y águila */
+    .roman-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      border-bottom: 3px solid #b8860b;
+      padding-bottom: 1rem;
+    }
+    .roman-header i {
+      font-size: 3rem;
+      color: #8b5a2b;
+      text-shadow: 2px 2px 0 #e0b060;
+    }
+    .roman-header h1 {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: 6px;
+      color: #4a2c1a;
+      text-shadow: 2px 2px 0 #c5a028;
+      margin: 0;
+    }
+    .roman-sub {
+      font-size: 1.2rem;
+      color: #6b4f2a;
+      margin-bottom: 2rem;
+      font-style: italic;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .roman-sub i {
+      margin: 0 0.3rem;
+      color: #b87333;
+    }
+
+    /* cuenta atrás */
+    .countdown-box {
+      background: #362812d9;
+      background: linear-gradient(135deg, #3d2e17, #2a1f0e);
+      border: 3px ridge #d4af37;
+      border-radius: 60px 60px 20px 20px;
+      padding: 1.8rem 1rem;
+      margin: 2rem 0;
+      color: #ffecb3;
+      box-shadow: inset 0 0 20px #7a5c2e;
+    }
+    .countdown-box h2 {
+      font-size: 1.7rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #f5e1a0;
+    }
+    .countdown-box h2 i {
+      font-size: 2rem;
+      margin: 0 0.5rem;
+      color: #e2b13b;
+    }
+    #timer {
+      font-size: 3rem;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      background: #1f180e;
+      display: inline-block;
+      padding: 0.5rem 1.8rem;
+      border-radius: 60px;
+      border: 1px solid #c5a85a;
+      box-shadow: 0 0 15px #e5b73c;
+      letter-spacing: 6px;
+      color: #fad675;
+    }
+    .small-note {
+      margin-top: 0.8rem;
+      font-size: 1.2rem;
+      color: #e2c28b;
+    }
+    .small-note i {
+      margin: 0 5px;
+    }
+
+    /*  acceso  */
+    .access-section {
+      background: #cdaa6e75;
+      background: radial-gradient(circle at top left, #eedbba, #cbad7a);
+      border: 2px solid #ad7e4b;
+      border-radius: 30px 30px 15px 15px;
+      padding: 2rem 1.5rem;
+      margin: 2rem 0 1rem;
+      box-shadow: inset 0 0 15px #ac8b54;
+    }
+    .access-section label {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #3b260d;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 0 #ffc561;
+    }
+    .password-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      align-items: center;
+    }
+    #password {
+      background: #fef7e9;
+      border: 4px solid #7a571d;
+      border-radius: 40px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.5rem;
+      font-family: 'Cinzel', serif;
+      text-align: center;
+      width: 250px;
+      outline: none;
+      color: #3e2b10;
+      box-shadow: inset 0 2px 8px #896f3e;
+      transition: all 0.2s;
+    }
+    #password:focus {
+      border-color: #e2b13b;
+      box-shadow: 0 0 15px gold, inset 0 0 8px #ca9e4b;
+    }
+    button {
+      background: #b37b42;
+      background: linear-gradient(to bottom, #ddb87b, #946b31);
+      border: 3px solid #ffd966;
+      border-radius: 50px;
+      padding: 0.7rem 2.2rem;
+      font-size: 1.7rem;
+      font-weight: bold;
+      font-family: 'Cinzel', serif;
+      color: #221c0f;
+      text-shadow: 0 1px 0 #ffd58c;
+      cursor: pointer;
+      box-shadow: 0 7px 0 #61471e, 0 8px 10px black;
+      transition: 0.07s linear;
+      letter-spacing: 2px;
+    }
+    button:active {
+      transform: translateY(6px);
+      box-shadow: 0 2px 0 #4f3a17, 0 5px 10px black;
+    }
+    button i {
+      margin-right: 8px;
+    }
+
+    /* contenido secreto (otra página simulada) */
+    #secretContainer {
+      background: #e7d8b8;
+      background: radial-gradient(circle at 30% 30%, #fef0cf, #cbad7a);
+      border: 8px double #b07e3f;
+    }
+    .secret-content {
+      padding: 1rem;
+    }
+    .secret-content h2 {
+      font-size: 3rem;
+      color: #4f3b1a;
+      margin: 1rem 0 0.5rem;
+      text-transform: uppercase;
+      border-bottom: 3px solid gold;
+      display: inline-block;
+    }
+    .secret-content p {
+      font-size: 1.5rem;
+      margin: 1.5rem 0;
+      color: #2b1e0b;
+      font-weight: 600;
+    }
+    .secret-icon {
+      font-size: 5rem;
+      color: #8b691b;
+      margin: 1rem;
+      text-shadow: 3px 3px 0 #4f3f1d;
+    }
+    .back-button {
+      margin-top: 2rem;
+      background: #4a3720;
+      background: linear-gradient(to bottom, #7e623b, #4f3a1f);
+      color: #ffe5a3;
+      border-color: #cfa668;
+      box-shadow: 0 5px 0 #332613;
+    }
+
+    /* pie con latín */
+    .roman-footer {
+      margin-top: 1.8rem;
+      font-size: 1.2rem;
+      color: #846f42;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      border-top: 1px dashed #b4945a;
+      padding-top: 1.2rem;
+    }
+    .roman-footer span {
+      font-weight: 700;
+    }
+
+    /* responsive */
+    @media (max-width: 550px) {
+      .container { padding: 1.8rem 1rem; }
+      .roman-header h1 { font-size: 2.5rem; }
+      #timer { font-size: 2rem; letter-spacing: 3px; }
+      .access-section label { font-size: 1.3rem; }
+      #password { width: 200px; font-size: 1.2rem; }
+      button { font-size: 1.3rem; padding: 0.6rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- PÁGINA DE ACCESO (con cuenta atrás) -->
+  <div class="container" id="loginContainer">
+    <div class="roman-header">
+      <i class="fas fa-eagle"></i>
+      <h1>SPQR</h1>
+      <i class="fas fa-crown"></i>
+    </div>
+    <div class="roman-sub">
+      <span><i class="fas fa-leaf"></i> Senatus Populusque Romanus <i class="fas fa-leaf"></i></span>
+    </div>
+
+    <!-- cuenta atrás al 20 de abril -->
+    <div class="countdown-box">
+      <h2>
+        <i class="fas fa-hourglass-half"></i> AD IDVS APRILIS <i class="fas fa-hourglass-half"></i>
+      </h2>
+      <div id="timer">--d --h --m --s</div>
+      <div class="small-note">
+        <i class="fas fa-calendar-alt"></i> 20 de abril <i class="fas fa-calendar-alt"></i>
+      </div>
+    </div>
+
+    <!-- formulario de la contraseña IMPERIO -->
+    <div class="access-section">
+      <label for="password"><i class="fas fa-key"></i> CONTRASEÑA <i class="fas fa-key"></i></label>
+      <div class="password-wrapper">
+        <input type="password" id="password" placeholder="·······" autocomplete="off">
+        <button onclick="checkPassword()" id="accessBtn"><i class="fas fa-sign-in-alt"></i> ACCEDER</button>
+      </div>
+      <p style="margin-top:1rem; color:#412f14; font-size:1.1rem;">el mapa tiene la respuesta</p>
+    </div>
+
+    <div class="roman-footer">
+      <span><i class="fas fa-globe"></i> ROMA AETERNA</span>
+      <span><i class="fas fa-shield-alt"></i> IVLIVS CAESAR</span>
+    </div>
+  </div>
+
+  <!-- SEGUNDA PÁGINA OCULTA (se muestra al poner la contraseña correcta) -->
+  <div class="container" id="secretContainer" style="display: none;">
+    <div class="roman-header">
+      <i class="fas fa-eagle"></i>
+      <h1>IMPERIO</h1>
+      <i class="fas fa-crown"></i>
+    </div>
+    <div class="secret-content">
+      <i class="fas fa-roman-statue secret-icon"></i>  <!-- Font Awesome no tiene estatua exacta, usamos fa-helmet-battle? probemos fa-trophy -->
+      <i class="fas fa-trophy secret-icon"></i>
+      <h2>¡AVE, CAESAR!</h2>
+      <p><i class="fas fa-check-circle" style="color:#b8860b;"></i> Has accedido a los archivos secretos del Imperio.</p>
+      <p style="font-size: 1.8rem;">🏛️ <i>Roma invicta</i> 🏛️</p>
+      <div style="display: flex; justify-content: center; gap: 2rem; font-size: 2rem; color: #765c2b;">
+        <i class="fas fa-map-marked-alt"></i>
+        <i class="fas fa-helmet-battle"></i>
+        <i class="fas fa-scroll"></i>
+      </div>
+      <p style="margin: 1.5rem 0;">El Senado y el pueblo romano te saludan.<br>Que los dioses guíen tu camino.</p>
+      <!-- botón para volver a la "otra página" (simular cierre de sesión) -->
+      <button class="back-button" onclick="logout()"><i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN</button>
+    </div>
+    <div class="roman-footer">
+      <span>SPQR</span>
+      <span>✧ IMPERIVM SINE FINE ✧</span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ----- CONFIGURACIÓN DE LA CUENTA ATRÁS (20 de abril) -----
+      const timerElement = document.getElementById('timer');
+      
+      function getNextApril20() {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        // abril es mes 3 (0-index)
+        let target = new Date(currentYear, 3, 20); // 20 de abril
+        // si ya pasó, fijar para el próximo año
+        if (now > target) {
+          target = new Date(currentYear + 1, 3, 20);
+        }
+        return target;
+      }
+
+      function updateCountdown() {
+        const targetDate = getNextApril20();
+        const now = new Date();
+        const diffMs = targetDate - now;
+
+        if (diffMs <= 0) {
+          // Llegó el día (podría mostrarse hoy mismo)
+          timerElement.textContent = "¡HOY ES 20 DE ABRIL!";
+          return;
+        }
+
+        const totalSeconds = Math.floor(diffMs / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        timerElement.textContent = `${days.toString().padStart(2, '0')}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+      }
+
+      // Actualizar cada segundo
+      updateCountdown();
+      const interval = setInterval(updateCountdown, 1000);
+
+      // ----- FUNCIONES DE ACCESO (contraseña "IMPERIO") -----
+      const loginDiv = document.getElementById('loginContainer');
+      const secretDiv = document.getElementById('secretContainer');
+      const passwordInput = document.getElementById('password');
+
+      // Función para comprobar la contraseña (se llama desde el botón)
+      window.checkPassword = function() {
+        const entered = passwordInput.value.trim();
+        // Comparación sin distinción de mayúsculas/minúsculas, pero manteniendo el espíritu: "IMPERIO"
+        if (entered.toUpperCase() === "IMPERIO") {
+          // Acceso concedido: ocultar login y mostrar contenido secreto
+          loginDiv.style.display = 'none';
+          secretDiv.style.display = 'block';
+          // Limpiar campo por seguridad y posibles reingresos
+          passwordInput.value = '';
+        } else {
+          alert("❌ Acceso denegado. La contraseña no es correcta, centurión.");
+          passwordInput.value = '';
+          passwordInput.focus();
+        }
+      };
+
+      // Permitir enviar con tecla Enter en el campo de contraseña
+      passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          checkPassword();
+        }
+      });
+
+      // Función para "cerrar sesión" y volver a la página principal
+      window.logout = function() {
+        secretDiv.style.display = 'none';
+        loginDiv.style.display = 'block';
+        passwordInput.value = '';
+        // Reiniciar el foco
+        passwordInput.focus();
+      };
+
+      // Opcional: si por alguna razón el intervalo sigue aunque el DOM desaparezca, no importa.
+      // Pero si quieres pararlo cuando se oculta, no es necesario.
+    })();
+  </script>
+
+  <!-- Pequeña mejora: si el usuario teclea en el campo y pulsa enter, se dispara checkPassword -->
+</body>
+</html>
