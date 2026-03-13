@@ -18,7 +18,7 @@
 
     body {
       font-family: 'Cinzel', 'Times New Roman', serif;
-      background: #2b1b0e;  /* fondo oscuro como tierra antigua */
+      background: #2b1b0e;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -28,14 +28,12 @@
         linear-gradient(45deg, rgba(180, 130, 70, 0.1) 25%, transparent 25%),
         linear-gradient(-45deg, rgba(180, 130, 70, 0.1) 25%, transparent 25%);
       background-size: 40px 40px;
-      position: relative;
     }
 
-    /* efecto papiro / mármol para el contenedor principal */
     .container {
       background: #faf0db;
       background: linear-gradient(145deg, #f8e9d0 0%, #e8d4b5 100%);
-      border: 8px double #b8860b;  /* dorado antiguo */
+      border: 8px double #b8860b;
       border-radius: 32px 32px 12px 12px;
       box-shadow: 0 20px 30px rgba(0,0,0,0.7), inset 0 0 30px rgba(255,215,0,0.3);
       padding: 2.5rem 2rem;
@@ -46,7 +44,6 @@
       transition: opacity 0.4s ease;
     }
 
-    /* decoración de laureles en las esquinas */
     .container::before,
     .container::after {
       content: "✧";
@@ -67,7 +64,6 @@
       transform: rotate(15deg);
     }
 
-    /* emblema SPQR y águila */
     .roman-header {
       display: flex;
       align-items: center;
@@ -151,7 +147,7 @@
       margin: 0 5px;
     }
 
-    /*  acceso  */
+    /* acceso */
     .access-section {
       background: #cdaa6e75;
       background: radial-gradient(circle at top left, #eedbba, #cbad7a);
@@ -247,6 +243,60 @@
       margin: 1rem;
       text-shadow: 3px 3px 0 #4f3f1d;
     }
+
+    /* ESTILOS PARA EL REGALO PIXELADO */
+    .gift-container {
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #3d2e1bb0;
+      border: 3px dashed #c9a350;
+      border-radius: 30px;
+      max-width: 500px; /* un poco más ancho para el texto */
+    }
+    .pixel-gift {
+      font-size: 5rem;
+      filter: blur(6px) brightness(0.8);
+      image-rendering: pixelated;
+      color: #af8c4a;
+      transition: filter 0.3s ease;
+      user-select: none;
+      cursor: default;
+      margin-bottom: 0.5rem;
+    }
+    .gift-message {
+      font-size: 1.3rem;
+      color: #3a2c13;
+      background: #ecdca8;
+      display: inline-block;
+      padding: 0.3rem 1.5rem;
+      border-radius: 30px;
+      transition: all 0.3s;
+      max-width: 100%;
+      word-wrap: break-word;
+    }
+    .gift-unlocked {
+      filter: none !important;
+      color: #f5cb5c;
+      text-shadow: 0 0 10px gold;
+    }
+    /* Estilo para el mensaje de premio largo */
+    .premio-largo {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      text-align: left;
+      background: #f8e9d0;
+      color: #3e2c15;
+      padding: 1.5rem;
+      border-radius: 20px;
+      border: 2px solid #b8860b;
+      white-space: pre-line; /* respeta saltos de línea */
+      font-family: 'Cinzel', serif;
+      max-width: 100%;
+    }
+    .premio-largo i {
+      color: #b8860b;
+      margin-right: 0.3rem;
+    }
     .back-button {
       margin-top: 2rem;
       background: #4a3720;
@@ -256,7 +306,6 @@
       box-shadow: 0 5px 0 #332613;
     }
 
-    /* pie con latín */
     .roman-footer {
       margin-top: 1.8rem;
       font-size: 1.2rem;
@@ -272,7 +321,6 @@
       font-weight: 700;
     }
 
-    /* responsive */
     @media (max-width: 550px) {
       .container { padding: 1.8rem 1rem; }
       .roman-header h1 { font-size: 2.5rem; }
@@ -306,7 +354,7 @@
       </div>
     </div>
 
-    <!-- formulario de la contraseña IMPERIO -->
+    <!-- formulario de la contraseña AETERNITAS -->
     <div class="access-section">
       <label for="password"><i class="fas fa-key"></i> CONTRASEÑA <i class="fas fa-key"></i></label>
       <div class="password-wrapper">
@@ -330,18 +378,27 @@
       <i class="fas fa-crown"></i>
     </div>
     <div class="secret-content">
-      <i class="fas fa-roman-statue secret-icon"></i>  <!-- Font Awesome no tiene estatua exacta, usamos fa-helmet-battle? probemos fa-trophy -->
+      <!-- iconos decorativos -->
       <i class="fas fa-trophy secret-icon"></i>
+      <i class="fas fa-scroll secret-icon"></i>
+
       <h2>¡AVE, CAESAR!</h2>
       <p><i class="fas fa-check-circle" style="color:#b8860b;"></i> Has accedido a los archivos secretos del Imperio.</p>
       <p style="font-size: 1.8rem;">🏛️ <i>Roma invicta</i> 🏛️</p>
-      <div style="display: flex; justify-content: center; gap: 2rem; font-size: 2rem; color: #765c2b;">
-        <i class="fas fa-map-marked-alt"></i>
-        <i class="fas fa-helmet-battle"></i>
-        <i class="fas fa-scroll"></i>
+
+      <!-- REGALO PIXELADO / TEXTO QUE SE REVELA EL 20 DE ABRIL -->
+      <div class="gift-container" id="giftContainer">
+        <div id="giftIcon" class="pixel-gift">
+          <i class="fas fa-gift"></i>
+        </div>
+        <div id="giftMessage" class="gift-message">
+          🔒 disponible el 20 de abril 🔒
+        </div>
       </div>
+
       <p style="margin: 1.5rem 0;">El Senado y el pueblo romano te saludan.<br>Que los dioses guíen tu camino.</p>
-      <!-- botón para volver a la "otra página" (simular cierre de sesión) -->
+
+      <!-- botón para volver a la página principal -->
       <button class="back-button" onclick="logout()"><i class="fas fa-sign-out-alt"></i> CERRAR SESIÓN</button>
     </div>
     <div class="roman-footer">
@@ -373,7 +430,7 @@
         const diffMs = targetDate - now;
 
         if (diffMs <= 0) {
-          // Llegó el día (podría mostrarse hoy mismo)
+          // Llegó el día
           timerElement.textContent = "¡HOY ES 20 DE ABRIL!";
           return;
         }
@@ -387,25 +444,64 @@
         timerElement.textContent = `${days.toString().padStart(2, '0')}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
       }
 
-      // Actualizar cada segundo
       updateCountdown();
       const interval = setInterval(updateCountdown, 1000);
 
-      // ----- FUNCIONES DE ACCESO (contraseña "IMPERIO") -----
+      // ----- FUNCIONES DE ACCESO (contraseña "AETERNITAS") -----
       const loginDiv = document.getElementById('loginContainer');
       const secretDiv = document.getElementById('secretContainer');
       const passwordInput = document.getElementById('password');
 
-      // Función para comprobar la contraseña (se llama desde el botón)
+      // Referencias a los elementos del regalo
+      const giftIcon = document.getElementById('giftIcon');
+      const giftMessage = document.getElementById('giftMessage');
+
+      // TEXTO DEL PREMIO (con el contenido proporcionado)
+      const TEXTO_PREMIO = `🎁 <strong>Suscripción a Yorescape</strong> 🎁
+
+Una experiencia digital para explorar la historia de una forma diferente.
+
+A través de mapas 3D detallados e interactivos podrás recorrer ciudades, monumentos y lugares del Imperio Romano, descubriendo cómo eran y cómo se relacionan con el mundo actual.
+
+Un viaje para observar, aprender y sumergirse en la historia de Roma desde casa.
+
+Que disfrutes del viaje por el Imperio.`;
+
+      // Función que actualiza el estado del regalo según la fecha
+      function updateGiftAvailability() {
+        const targetDate = getNextApril20();
+        const now = new Date();
+        const diffMs = targetDate - now;
+
+        // Si diffMs <= 0 significa que ya es 20 de abril (o después)
+        if (diffMs <= 0) {
+          // Desbloquear: quitar blur y mostrar el texto del premio formateado
+          giftIcon.classList.add('gift-unlocked');
+          giftIcon.innerHTML = '<i class="fas fa-gift"></i>';
+          
+          // Aplicamos un estilo especial para texto largo
+          giftMessage.className = ''; // quitamos clases anteriores
+          giftMessage.classList.add('premio-largo');
+          giftMessage.innerHTML = TEXTO_PREMIO.replace(/\n/g, '<br>'); // respetamos saltos de línea
+        } else {
+          // Asegurar que esté pixelado y el mensaje corto
+          giftIcon.classList.remove('gift-unlocked');
+          giftIcon.innerHTML = '<i class="fas fa-gift"></i>';
+          giftMessage.className = 'gift-message'; // restauramos clase original
+          giftMessage.innerHTML = '🔒 disponible el 20 de abril 🔒';
+        }
+      }
+
       window.checkPassword = function() {
         const entered = passwordInput.value.trim();
-        // Comparación sin distinción de mayúsculas/minúsculas, pero manteniendo el espíritu: "IMPERIO"
         if (entered.toUpperCase() === "AETERNITAS") {
-          // Acceso concedido: ocultar login y mostrar contenido secreto
+          // Acceso concedido
           loginDiv.style.display = 'none';
           secretDiv.style.display = 'block';
-          // Limpiar campo por seguridad y posibles reingresos
           passwordInput.value = '';
+
+          // Al mostrar la página secreta, evaluamos si el regalo debe estar desbloqueado
+          updateGiftAvailability();
         } else {
           alert("❌ Acceso denegado. La contraseña no es correcta, centurión.");
           passwordInput.value = '';
@@ -413,7 +509,7 @@
         }
       };
 
-      // Permitir enviar con tecla Enter en el campo de contraseña
+      // Permitir enviar con tecla Enter
       passwordInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
           e.preventDefault();
@@ -421,22 +517,15 @@
         }
       });
 
-      // Función para "cerrar sesión" y volver a la página principal
+      // Función para "cerrar sesión"
       window.logout = function() {
         secretDiv.style.display = 'none';
         loginDiv.style.display = 'block';
         passwordInput.value = '';
-        // Reiniciar el foco
         passwordInput.focus();
       };
 
-      // Opcional: si por alguna razón el intervalo sigue aunque el DOM desaparezca, no importa.
-      // Pero si quieres pararlo cuando se oculta, no es necesario.
     })();
   </script>
-
-  <!-- Pequeña mejora: si el usuario teclea en el campo y pulsa enter, se dispara checkPassword -->
 </body>
-
 </html>
-
